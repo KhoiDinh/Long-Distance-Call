@@ -1,0 +1,106 @@
+// Inputs: letter1, letter2, hour, divider, minute, length
+//Outputs: CostOfCall
+// Finds the cost of the call a person makes depending on the time and day they made it
+
+
+
+#include "stdafx.h"
+#include <iostream>
+#include <cstring>
+#include <iomanip>
+using namespace std;
+
+
+int _tmain(int argc, _TCHAR* argv[])
+{
+	// variables created and some are assigned variables
+	const double WEEKEND = 0.15;
+	const double EVENING = 0.25;
+	const double DAY = 0.40;
+	char letter1, letter2,divider;
+	int hour, minute, length;
+
+	char repeat;
+	int TimeStart;
+	double billingRate, CostOfCalls;
+
+	// loop to do calculation many times
+	do
+	{
+		//inputs and outputs
+		cout << "Enter the day (Mo Tu We Th Fr Sa Su): ";
+		cin >> letter1 >> letter2;
+		letter1 = toupper(letter1);
+		letter2 = toupper(letter2);
+
+		cout << "Enter the time the call started (ex: 14:35): ";
+		cin >> hour >> divider >> minute;
+		TimeStart = hour * 100 + minute;
+
+		cout << "Enter the length of the call in minutes: ";
+		cin >> length;
+
+		// deals with number less than call time
+		if (length >=0)
+		{
+			length = length;
+		}
+		else
+		{
+			cout << "Has to be a positive number." << endl;
+			return 0;
+		}
+
+		// deal with time that isn't real
+		if (TimeStart <= 2400)
+		{
+			TimeStart = TimeStart;
+		}
+		else
+		{
+			cout << " Has to be a valid time" << endl;
+			break;
+			return 0;
+		}
+		// if/ese statements to see when to use rates on which days
+		if (letter1 == 'S' && letter2 == 'U')
+		{
+			billingRate = WEEKEND;
+		}
+		else if (letter1 == 'S' && letter2 == 'A')
+		{
+			billingRate = WEEKEND;
+		}
+		else
+		{
+			if (TimeStart >= 800 && TimeStart <= 1800)
+			{
+				billingRate = DAY;
+			}
+			else
+			{
+				billingRate = EVENING;
+			}
+		}
+		//calculates the cost of the call
+		CostOfCalls = length * billingRate;
+
+		// do the output
+		cout << setiosflags(ios::fixed);
+		cout << setiosflags(ios::showpoint);
+		cout << "The cost of the call you made is: $" << setprecision(2) << CostOfCalls << endl;
+
+		//loop control
+		cout << "Another call (Y/N)?: ";
+		cin >> repeat;
+		repeat = toupper(repeat);
+	
+		// if users says 'Y', alculation is repeated again
+	} while (repeat == 'Y');
+	{
+		return 0;
+	}
+	return 0;
+}
+
+
